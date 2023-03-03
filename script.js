@@ -1,77 +1,91 @@
-const numButton = document.querySelectorAll('.num-button');
-const operationButton = document.querySelectorAll('.operation');
-const clearButton = document.querySelector('#all-clear');
-const delButton = document.querySelector('.delete');
-const equalsButton = document.querySelector('#equals');
-const previousOutput = document.querySelector('.previous-ouput');
-const output = document.querySelector('.output');
+let operator ='';
+let previousValue ='';
+let currentValue ='';
 
-numButton.forEach((button) => {
-    button.addEventListener('click', () => {
-        console.log(button.textContent);
+
+let output = document.querySelector('.output');
+let clear = document.querySelector('.clear');
+let deleteButton = document.querySelector('.delete');
+let decimal = document.querySelector('.decimal');
+let equal = document.querySelector('.equal');
+let prev = document.querySelector('.prev');
+let current = document.querySelector('.current');
+let numbers = document.querySelectorAll('.number');
+let operators = document.querySelectorAll('.operator');
+
+
+
+operators.forEach((op) => {
+    op.addEventListener('click', (e) => {
+        handleOp(e.target.textContent);
+        prev.textContent = previousValue + ' ' + operator;
+        current.textContent = currentValue;
     });
 });
 
-operationButton.forEach((button) => {
-    button.addEventListener('click', () => {
-        console.log(button.textContent);
+numbers.forEach((number) => {
+    number.addEventListener('click', (e) => {
+        handleNumber(e.target.textContent);
+        current.textContent = currentValue;
     });
 });
 
-clearButton.addEventListener('click', () => {
-    console.log(clearButton.textContent);
+
+clear.addEventListener('click', function() {
+    previousValue = '';
+    currentValue = '';
+    operator = '';
+    current.textContent = currentValue;
+    prev.textContent = currentValue;
 });
 
-delButton.addEventListener('click', () => {
-    console.log(delButton.textContent);
-});
+function handleOp(opSign) {
+    operator = opSign;
+    previousValue = currentValue;
+    currentValue = '';
+}
 
-equalsButton.addEventListener('click', () => {
-    console.log(equalsButton.textContent);
-});
+function handleNumber(num) {
+    if (currentValue.length < 6) {
+        currentValue += num;
+        
+    }
 
-
-
-
-
+}
 
 function add(a,b) {
-    console.log(a + b);
+    return(parseFloat(a) + parseFloat(b));
 }
 
 function subtract(a,b) {
-    console.log(a - b);
+    return(parseFloat(a) - parseFloat(b));
 }
 
 function multiply(a,b) {
-    console.log(a * b);
+    return(parseFloat(a) * parseFloat(b));
 }
 
 function divide(a,b) {
-    if (b == 0) {
+    if (b === 0) {
         console.log("Error! Dividing by 0 will break the matrix!")
     }
     else {
-        console.log(a / b);
+        return(parseFloat(a) / parseFloat(b));
     }
 }
 
 
 
 function operate(operator, a, b) {
-    let aNum = parseFloat(a);
-    let bNum = parseFloat(b);
     switch (operator) {
         case '+':
-            return add(aNum, bNum);
+            return add(a, b);
         case '-':
-            return subtract(aNum, bNum);
-        case '&#215;':
-            return multiply(aNum, bNum);
+            return subtract(a, b);
+        case '*':
+            return multiply(a, b);
         case '÷':
-            return divide(aNum, bNum);
-        default:
-            return null;
+            return divide(a, b);
     }
  
 }
