@@ -1,6 +1,7 @@
 let operator ='';
 let previousValue ='';
 let currentValue ='';
+let result = '';
 
 
 let output = document.querySelector('.output');
@@ -39,6 +40,25 @@ clear.addEventListener('click', function() {
     prev.textContent = currentValue;
 });
 
+equal.addEventListener('click', function() {
+    if (!currentValue || !previousValue) {
+        prev.textContent = '';
+        current.textContent = "Error!";
+    } else {
+        result = operate(operator, previousValue, currentValue);
+        prev.textContent = result;
+        current.textContent = result;
+    }
+    
+    console.log(operator);
+    console.log(previousValue);
+    console.log(currentValue);
+    console.log(result);
+    
+
+    
+});
+
 function handleOp(opSign) {
     operator = opSign;
     previousValue = currentValue;
@@ -48,7 +68,6 @@ function handleOp(opSign) {
 function handleNumber(num) {
     if (currentValue.length < 6) {
         currentValue += num;
-        
     }
 
 }
@@ -66,7 +85,7 @@ function multiply(a,b) {
 }
 
 function divide(a,b) {
-    if (b === 0) {
+    if (b === 0 || b === '0') {
         console.log("Error! Dividing by 0 will break the matrix!")
     }
     else {
@@ -84,7 +103,7 @@ function operate(operator, a, b) {
             return subtract(a, b);
         case '*':
             return multiply(a, b);
-        case '÷':
+        case '/':
             return divide(a, b);
     }
  
