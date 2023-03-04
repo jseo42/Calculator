@@ -16,10 +16,11 @@ let operators = document.querySelectorAll('.operator');
 
 
 
+
 operators.forEach((op) => {
     op.addEventListener('click', (e) => {
         handleOp(e.target.textContent);
-        prev.textContent = previousValue + ' ' + operator;
+        prev.textContent = previousValue + ' ' + operator + ' ' + currentValue;
         current.textContent = currentValue;
     });
 });
@@ -31,38 +32,42 @@ numbers.forEach((number) => {
     });
 });
 
+deleteButton.addEventListener('click', function() {
+    currentValue = currentValue.slice(0, -1);
+    current.textContent = currentValue;
+});
 
 clear.addEventListener('click', function() {
     previousValue = '';
     currentValue = '';
     operator = '';
+    result = '';
     current.textContent = currentValue;
     prev.textContent = currentValue;
+    
 });
 
-equal.addEventListener('click', function() {
-    if (!currentValue || !previousValue) {
-        prev.textContent = '';
-        current.textContent = "Error!";
-    } else {
-        result = operate(operator, previousValue, currentValue);
-        prev.textContent = result;
-        current.textContent = result;
-    }
-    
-    console.log(operator);
-    console.log(previousValue);
-    console.log(currentValue);
-    console.log(result);
-    
 
-    
+equal.addEventListener('click', function() {
+    currentValue = Number(currentValue);
+    previousValue = Number(previousValue);
+    result = operate(operator, previousValue, currentValue);
+    current.textContent = result;
+    prev.textContent = result + ' ' + operator;
+    previousValue = currentValue;
+    currentValue = result;
+    console.log(currentValue);
+    console.log(previousValue);
+    console.log(result);
+
 });
 
 function handleOp(opSign) {
     operator = opSign;
     previousValue = currentValue;
     currentValue = '';
+
+
 }
 
 function handleNumber(num) {
@@ -93,8 +98,6 @@ function divide(a,b) {
     }
 }
 
-
-
 function operate(operator, a, b) {
     switch (operator) {
         case '+':
@@ -106,7 +109,10 @@ function operate(operator, a, b) {
         case '/':
             return divide(a, b);
     }
- 
+    console.log(operator);
+    console.log(a);
+    console.log(b);
+    
 }
 
 
