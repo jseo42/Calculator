@@ -1,7 +1,7 @@
 let operator ='';
 let previousValue ='';
 let currentValue ='';
-let result = '';
+
 
 
 let output = document.querySelector('.output');
@@ -49,18 +49,37 @@ clear.addEventListener('click', function() {
 
 
 equal.addEventListener('click', function() {
-    currentValue = Number(currentValue);
-    previousValue = Number(previousValue);
-    result = operate(operator, previousValue, currentValue);
-    current.textContent = result;
-    prev.textContent = result + ' ' + operator;
-    previousValue = currentValue;
-    currentValue = result;
-    console.log(currentValue);
-    console.log(previousValue);
-    console.log(result);
-
+    if (!!previousValue && !!currentValue) {
+        calculate()    
+        prev.textContent = '';
+        current.textContent = previousValue;
+    } else {
+        
+    }
+    
+    
 });
+
+function calculate() {
+    previousValue = Number(previousValue);
+    currentValue = Number(currentValue);
+    if (operator === '+') {
+        previousValue += currentValue;
+    } else if (operator === '-') {
+        previousValue -= currentValue;
+    } else if (operator === '*') {
+        previousValue *= currentValue;
+    } else {
+        previousValue /= currentValue;
+    }
+    previousValue = roundNum(previousValue);
+    previousValue = previousValue.toString();
+    currentValue = previousValue.toString();
+}
+
+function roundNum(result) {
+    return Math.round(result * 10000) / 10000;
+}
 
 function handleOp(opSign) {
     operator = opSign;
@@ -77,43 +96,8 @@ function handleNumber(num) {
 
 }
 
-function add(a,b) {
-    return(parseFloat(a) + parseFloat(b));
-}
 
-function subtract(a,b) {
-    return(parseFloat(a) - parseFloat(b));
-}
 
-function multiply(a,b) {
-    return(parseFloat(a) * parseFloat(b));
-}
-
-function divide(a,b) {
-    if (b === 0 || b === '0') {
-        console.log("Error! Dividing by 0 will break the matrix!")
-    }
-    else {
-        return(parseFloat(a) / parseFloat(b));
-    }
-}
-
-function operate(operator, a, b) {
-    switch (operator) {
-        case '+':
-            return add(a, b);
-        case '-':
-            return subtract(a, b);
-        case '*':
-            return multiply(a, b);
-        case '/':
-            return divide(a, b);
-    }
-    console.log(operator);
-    console.log(a);
-    console.log(b);
-    
-}
 
 
 
