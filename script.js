@@ -60,6 +60,10 @@ equal.addEventListener('click', function() {
     
 });
 
+
+ decimal.addEventListener('click', function() {
+    addDec
+ });
 function calculate() {
     previousValue = Number(previousValue);
     currentValue = Number(currentValue);
@@ -88,6 +92,11 @@ function handleOp(opSign) {
 
 
 }
+function addDec() {
+    if (!currentValue.includes('.')) {
+        currentValue += '.';
+    }
+}
 
 function handleNumber(num) {
     if (currentValue.length < 6) {
@@ -95,6 +104,7 @@ function handleNumber(num) {
     }
 
 }
+
 
 
 
