@@ -54,7 +54,8 @@ equal.addEventListener('click', function() {
     if (previousValue.length < 6) {
         current.textContent = previousValue;
     } else {
-        current.textContent = previousValue.slice(0,5);
+        current.textContent = previousValue.slice(0,9) + ". . .";
+        
     }
     
     
@@ -65,11 +66,9 @@ decimal.addEventListener('click', function() {
     addDec();
 });
 function calculate() {
-    console.log(currentValue);
-    console.log(previousValue);
     previousValue = Number(previousValue);
     currentValue = Number(currentValue);
-    let preVal = currentValue; 
+    let lastNum = currentValue;
     if (operator === '+') {
         previousValue += currentValue;
     } else if (operator === '-') {
@@ -80,24 +79,25 @@ function calculate() {
         previousValue /= currentValue;
     }
     
-    previousValue = roundNum(previousValue);
+    
     previousValue = previousValue.toString();
     currentValue = previousValue.toString();
-    currentValue = preVal;
-
-    console.log(currentValue);
-    console.log(previousValue);
-    console.log(preVal);
+    let result = previousValue;
+    currentValue = lastNum;
+    previousValue = result
+    
+    
+    
 }   
 
-function roundNum(result) {
-    return Math.round(result * 10000) / 10000;
-}
+
 
 function handleOp(opSign) {
     operator = opSign;
     previousValue = currentValue;
     currentValue = '';
+    console.log(previousValue);
+    console.log(currentValue);
 
 
 }
