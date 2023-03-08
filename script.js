@@ -14,9 +14,6 @@ let current = document.querySelector('.current');
 let numbers = document.querySelectorAll('.number');
 let operators = document.querySelectorAll('.operator');
 
-
-
-
 operators.forEach((op) => {
     op.addEventListener('click', (e) => {
         handleOp(e.target.textContent);
@@ -47,7 +44,6 @@ clear.addEventListener('click', function() {
     
 });
 
-
 equal.addEventListener('click', function() {
     calculate()
     prev.textContent ='';
@@ -60,7 +56,6 @@ equal.addEventListener('click', function() {
     
     
 });
-
 
 decimal.addEventListener('click', function() {
     addDec();
@@ -80,27 +75,26 @@ function calculate() {
     }
     
     
+
+    let result = previousValue;
+    result = result.toString();
     previousValue = previousValue.toString();
     currentValue = previousValue.toString();
-    let result = previousValue;
     currentValue = lastNum;
     previousValue = result
-    
-    
-    
 }   
-
-
 
 function handleOp(opSign) {
     operator = opSign;
-    previousValue = currentValue;
-    currentValue = '';
-    console.log(previousValue);
-    console.log(currentValue);
-
-
+    if (!!previousValue) {
+        previousValue = previousValue;
+        currentValue = '';
+    } else {
+        previousValue = currentValue;
+        currentValue = '';
+    }
 }
+
 function addDec() {
     if (!currentValue.includes('.')) {
         currentValue += '.';
@@ -112,7 +106,6 @@ function handleNumber(num) {
     if (currentValue.length < 6) {
         currentValue += num;
     }
-
 }
 
 
